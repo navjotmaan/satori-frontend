@@ -9,6 +9,7 @@ export default defineConfig({
     proxy: {
       "/notes": "http://localhost:3000",
       "/save": "http://localhost:3000",
+      "/note": "http://localhost:3000",
     }
   }
 })
