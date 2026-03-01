@@ -2,17 +2,24 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
-import App from './App.jsx'
-import Notes from './components/Notes.jsx'
+import App from './components/App.jsx'
+import Notes from './components/Page.jsx'
+import Journal from './components/Journal.jsx'
+import Error from './components/ErrorElement.jsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App/>,
+    errorElement: <Error />,
   }, 
   {
     path: 'new',
     element: <Notes/>,
+  },
+  {
+    path: ':id',
+    element: <Journal />,
   },
 ]);
 
