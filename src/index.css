@@ -2,5 +2,6 @@
 
 body {
     text-align: center;
-    background-color: #F2F2F0;
+    background-color: #f2e9e4;
+    min-height: 100vh;
 }
