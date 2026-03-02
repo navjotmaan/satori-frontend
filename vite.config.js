@@ -10,6 +10,8 @@ export default defineConfig({
       "/notes": "http://localhost:3000",
       "/save": "http://localhost:3000",
       "/note": "http://localhost:3000",
+      "/quotes/save": "http://localhost:3000",
+      "/quotes": "http://localhost:3000",
     }
   }
 })
