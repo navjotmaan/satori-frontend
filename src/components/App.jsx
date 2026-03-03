@@ -24,21 +24,19 @@ function App() {
   }
 
   return (
-    <div className='flex h-full'>
+    <div className='flex h-full px-10'>
       <div className='basis-[70vw] min-h-[100vh]'>
-        <header className='p-5 flex justify-between items-center'>
-          <div className='text-left my-5'>
+        <header className='p-5 text-left my-5'>
             <h1 className='font-bold text-2xl text-[#D9564A]'>My Media</h1>
-            <p className='text-lg'>We write to taste life twice.</p>
-          </div>
-          <Link to='new' className='rounded-xl p-1 px-2 bg-[#3B9CD9]'>Create</Link>
+            <p className='text-lg mb-5'>We write to taste life twice.</p>
+          <Link to='new' className='rounded-lg py-1 px-3 bg-[#3B9CD9] text-white'>Create</Link>
         </header>
 
-        <main className='flex items-center space-x-6 p-10'>
+        <main className='flex flex-wrap gap-10 p-5'>
           {notes.map(note => (
-            <Link to={`/${note.id}`} key={note.id} className='basis-64 rounded bg-[#F2884B] text-white p-5'>
+            <Link to={`/${note.id}`} key={note.id} className='border-4 w-[300px] border-[#F2884B] rounded-lg p-5'>
               <p>{getDate(note.updated_at)}</p>
-              <p>{note.content}</p>
+              <p>{note.title}</p>
             </Link>
           ))}
           
