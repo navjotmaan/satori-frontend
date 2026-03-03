@@ -2,7 +2,9 @@ import axios from "axios";
 import { useState, useRef, useEffect } from "react";
 
 export default function Notes() {
+  const [heading, setHeading] = useState("");
   const [text, setText] = useState("");
+  const headingareaRef = useRef(null);
   const textareaRef = useRef(null);
 
   useEffect(() => {
@@ -13,11 +15,18 @@ export default function Notes() {
   }, [text]);
 
   useEffect(() => {
-    textareaRef.current?.focus();
+    const ta = headingareaRef.current;
+    if (!ta) return;
+    ta.style.height = "auto";
+  }, [heading]);
+
+  useEffect(() => {
+    headingareaRef.current?.focus();
   }, []);
 
   const saveNote = async () => {
     const { data } = await axios.post('/save', {
+      title: heading,
       content: text,
     });
     console.log(data);
@@ -46,13 +55,24 @@ export default function Notes() {
 
       <div className="flex justify-center px-6 pt-24 pb-20">
         <div className="w-full max-w-2xl">
+          <textarea 
+            ref={headingareaRef}
+            value={heading}
+            onChange={(e) => setHeading(e.target.value)}
+            placeholder="Title"
+            className='
+              w-full border-none resize-none
+              overflow-hidden outline-none text-2xl font-semibold
+              placeholder:text-[#79736f]'
+          />
           <textarea
             ref={textareaRef}
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Start writing…"
             className='
-              w-full min-h-[calc(100vh-140px)]
+              w-full min-h-[calc(100vh-140px)] text-[18px]
+              overflow-hidden
               bg-transparent border-none outline-none resize-none
               leading-[1.9] tracking-[0.01em]
               placeholder:text-[#a89f96]
