@@ -16,8 +16,10 @@ const Journal = () => {
     }, []);
 
     return (
-        <div>
-            {note.content}
+        <div className="flex justify-center px-6 py-14">
+            <main className="w-full max-w-2xl text-left leading-[1.9] tracking-[0.01em] text-[18px]">
+                {note.content}
+            </main>
         </div>
     )
 };
