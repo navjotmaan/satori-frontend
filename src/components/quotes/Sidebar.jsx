@@ -15,13 +15,11 @@ const QuoteSection = () => {
         getQuotes();
     }, []);
 
-    console.log(quotes)
-
     return (
-        <div className='bg-[#012611] text-white basis-[30vw] h-full'>
+        <div className='border-2 border-[#F2884B] rounded-xl basis-[30vw] h-[90%] m-10'>
             <button onClick={() => setShowPopup(true)} className="rounded-xl p-1 px-2 bg-[#3B9CD9]">Add</button>
 
-            <div className="flex flex-col gap-4 mt-10">
+            <div className="flex flex-col gap-4 pt-2">
                 {quotes.map(quote => (
                     <p key={quote.id} className="border-b border-b-[#c9ada7] px-5 py-2">{quote.quote}</p>
                 ))}
