@@ -1,7 +1,40 @@
 @import "tailwindcss";
 
 body {
-    text-align: center;
-    background-color: #f2e9e4;
-    min-height: 100vh;
+  text-align: center;
+  background-color: #f2e9e4;
+  min-height: 100vh;
+}
+
+@theme {
+  --font-sans: "Nunito", "Lato", "ui-sans-serif", "system-ui";
+  --font-handwriting: "Playwrite NZ Basic", "cursive";
+  --font-display: "Quintessential", "Oswald", "serif";
+  --font-pro: "SN Pro", "sans-serif";
+}
+
+@layer base {
+  body {
+    @apply font-sans;
+  }
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px; 
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px; 
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
 }
