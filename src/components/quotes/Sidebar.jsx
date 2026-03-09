@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import Popup from "./Popup";
 import axios from "axios";
+import Popup from "./Popup";
 
 const QuoteSection = () => {
     const [quotes, setQuotes] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
+    const [selectedQuote, setSelectedQuote] = useState(null);
 
     useEffect(() => {
         const getQuotes = async () => {
@@ -13,23 +14,34 @@ const QuoteSection = () => {
         };
 
         getQuotes();
-    }, []);
+    }, [quotes]);
+
+    const handleEdit = (quote) => {
+        setSelectedQuote(quote);
+        setShowPopup(true);
+    }
 
     return (
-        <div className='border-2 border-[#F2884B] rounded-xl basis-[30vw] h-[90%] m-10'>
-            <button onClick={() => setShowPopup(true)} className="rounded-xl p-1 px-2 bg-[#3B9CD9]">Add</button>
-
+        <div>
             <div className="flex flex-col gap-4 pt-2">
-                {quotes.map(quote => (
-                    <p key={quote.id} className="border-b border-b-[#c9ada7] px-5 py-2">{quote.quote}</p>
-                ))}
+                {quotes.length !== 0 ? (
+                    quotes.map(quote => (
+                        <p key={quote.id} onClick={() => handleEdit(quote)} className="border-b border-b-[#c9ada7] px-5 py-2 cursor-pointer">
+                            {quote.quote}
+                        </p>
+                    ))
+                ) : 
+                    <p className="mt-10 font-handwriting">Your notes will appear here.</p>
+                }
             </div>
 
-        {showPopup && (
-            <Popup closePopup={() => setShowPopup(false)}/>
-        )}
+            {showPopup && (
+                <Popup 
+                    id={selectedQuote?.id}
+                    quote={selectedQuote?.quote}
+                    closePopup={() => setShowPopup(false)} />
+            )}
         </div>
-
     )
 };
 
