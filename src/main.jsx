@@ -3,9 +3,9 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import App from './components/App.jsx'
-import Notes from './components/Page.jsx'
 import Journal from './components/Journal.jsx'
 import Error from './components/ErrorElement.jsx'
+import AudioRecorder from './components/speech-to-text/AudioRecorder.jsx'
 
 const router = createBrowserRouter([
   {
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
   }, 
   {
     path: 'new',
-    element: <Notes/>,
+    element: <AudioRecorder/>,
   },
   {
     path: ':id',
