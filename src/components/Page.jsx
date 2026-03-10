@@ -1,11 +1,20 @@
 import axios from "axios";
 import { useState, useRef, useEffect } from "react";
+import mic from '../assets/microphone.png';
+import { useNavigate } from "react-router-dom";
 
-export default function Notes() {
+export default function Notes({ recording, stopRecording, startRecording, loading, transcript }) {
   const [heading, setHeading] = useState("");
   const [text, setText] = useState("");
   const headingareaRef = useRef(null);
   const textareaRef = useRef(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (transcript) {
+      setText((prev) => prev ? `${prev}\n${transcript}` : transcript);
+    }
+  }, [transcript]);
 
   useEffect(() => {
     const ta = textareaRef.current;
@@ -30,6 +39,8 @@ export default function Notes() {
       content: text,
     });
     console.log(data);
+
+    navigate("/");
   };
 
   const today = new Date().toLocaleDateString("en-US", {
@@ -46,15 +57,21 @@ export default function Notes() {
         {today}
         </span>
 
-        <button
-          onClick={saveNote}
-          className="border rounded px-2">
-          Save
-        </button>
+        <div className="flex gap-5">
+          <img src={mic} className={`h-8 cursor-pointer ${recording ? 'animate-pulse opacity-50' : ''}`}
+            title={recording ? 'Stop Recording' : 'Record Voice'}
+            onClick={recording ? stopRecording : startRecording} />
+
+          <button
+            onClick={saveNote}
+            className="border rounded px-2">
+            Save
+          </button>
+        </div>
       </div>
 
       <div className="flex justify-center px-6 pt-24 pb-20">
-        <div className="w-full max-w-2xl">
+        <main className="w-full max-w-2xl">
           <textarea 
             ref={headingareaRef}
             value={heading}
@@ -65,6 +82,9 @@ export default function Notes() {
               overflow-hidden outline-none text-2xl font-semibold
               placeholder:text-[#79736f]'
           />
+          
+          {loading && <p className="text-blue-500 text-sm">Transcribing voice...</p>}
+
           <textarea
             ref={textareaRef}
             value={text}
@@ -79,7 +99,8 @@ export default function Notes() {
               transition-colors duration-300
             '
           />
-        </div>
+
+        </main>
       </div>
     </div>
   );
