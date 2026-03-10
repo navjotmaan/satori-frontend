@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import axios from 'axios';
+import Notes from '../Page';
 
 const AudioRecorder = () => {
   const [recording, setRecording] = useState(false);
@@ -10,21 +11,25 @@ const AudioRecorder = () => {
   const audioChunks = useRef([]);
 
   const startRecording = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorder.current = new MediaRecorder(stream);
-    audioChunks.current = [];
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder.current = new MediaRecorder(stream);
+      audioChunks.current = [];
 
-    mediaRecorder.current.ondataavailable = (event) => {
-      audioChunks.current.push(event.data);
-    };
+      mediaRecorder.current.ondataavailable = (event) => {
+        audioChunks.current.push(event.data);
+      };
 
-    mediaRecorder.current.onstop = async () => {
-      const audioBlob = new Blob(audioChunks.current, { type: 'audio/webm' });
-      await uploadAudio(audioBlob);
-    };
+      mediaRecorder.current.onstop = async () => {
+        const audioBlob = new Blob(audioChunks.current, { type: 'audio/webm' });
+        await uploadAudio(audioBlob);
+      };
 
-    mediaRecorder.current.start();
-    setRecording(true);
+      mediaRecorder.current.start();
+      setRecording(true);
+    } catch (err) {
+      console.error("Microphone access denied", err);
+    }
   };
 
   const stopRecording = () => {
@@ -51,20 +56,15 @@ const AudioRecorder = () => {
   };
 
   return (
-    <div className='p-5 text-center'>
-      <h2 className='text-lg font-semibold'>Voice-to-Text</h2>
-      <button onClick={recording ? stopRecording : startRecording}>
-        {recording ? 'Stop & Transcribe' : 'Start Recording'}
-      </button>
-      
-      {loading && <p>Processing audio with AssemblyAI...</p>}
-      
-      <div className='mt-5 border border-gray-300 p-2'>
-        <strong>Transcript:</strong>
-        <p>{transcript || "Your text will appear here..."}</p>
-      </div>
-    </div>
-  );
+    <Notes
+      recording={recording}
+      stopRecording={stopRecording}
+      startRecording={startRecording}
+      loading={loading}
+      transcript={transcript} 
+    />
+  )
+
 };
 
 export default AudioRecorder;
