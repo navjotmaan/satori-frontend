@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react"
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Journal = () => {
     const { id } = useParams();
     const [note, setNote] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getNote = async () => {
@@ -17,6 +18,7 @@ const Journal = () => {
 
     const deleteNote = async () => {
         const { data } = await axios.post(`/delete/${id}`);
+        navigate("/");
     };
 
     return (
