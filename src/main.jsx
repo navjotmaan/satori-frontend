@@ -9,17 +9,12 @@ import AudioRecorder from './components/speech-to-text/AudioRecorder.jsx'
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <App/>,
     errorElement: <Error />,
-  }, 
-  {
-    path: 'new',
-    element: <AudioRecorder/>,
-  },
-  {
-    path: ':id',
-    element: <Journal />,
+    children: [
+      { path: '/', element: <App /> },
+      { path: 'new', element: <AudioRecorder /> },
+      { path: ':id', element: <Journal /> },
+    ],
   },
 ]);
 
