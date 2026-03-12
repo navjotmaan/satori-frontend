@@ -35,11 +35,11 @@ const Dialog = ({ open, onClose, note, quoteId = null, closePopup }) => {
     
     return (
         <>
-            <dialog ref={dialogRef} onClose={onClose} className="p-6 rounded-lg shadow-xl">
-                <p>Are you sure you want to delete this note?</p>
-                <div>
-                    <button onClick={onClose} className="border p-1">Cancel</button>
-                    <button onClick={note? deleteNote : deleteQuote} className="border p-1">Yes</button>
+            <dialog ref={dialogRef} onClose={onClose} className="m-auto p-6 rounded-xl shadow-xl">
+                <p>Do you want to delete this post?</p>
+                <div className="flex justify-center gap-10 mt-5">
+                    <button onClick={onClose} className="border p-1 w-20 rounded-lg cursor-pointer">Cancel</button>
+                    <button onClick={note? deleteNote : deleteQuote} className="border p-1 w-20 rounded-lg cursor-pointer bg-red-500 text-white">Yes</button>
                 </div>
             </dialog>
         </>
