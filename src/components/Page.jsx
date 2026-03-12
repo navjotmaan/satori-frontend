@@ -38,7 +38,6 @@ export default function Notes({ recording, stopRecording, startRecording, loadin
       title: heading,
       content: text,
     });
-    console.log(data);
 
     navigate("/");
   };
@@ -64,7 +63,7 @@ export default function Notes({ recording, stopRecording, startRecording, loadin
 
           <button
             onClick={saveNote}
-            className="border rounded px-2">
+            className="border rounded px-2 cursor-pointer">
             Save
           </button>
         </div>
