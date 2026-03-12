@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import Dialog from "../Dialog";
 
 const Popup = ({ closePopup, quote = "", id = null }) => {
     const [text, setText] = useState(quote || "");
     const textareaRef = useRef(null);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
     const ta = textareaRef.current;
@@ -39,15 +41,6 @@ const Popup = ({ closePopup, quote = "", id = null }) => {
         }
     };
 
-    const deleteQuote = async () => {
-        try {
-            await axios.post(`/quotes/delete/${id}`);
-            closePopup();
-        } catch (error) {
-            console.error("Failed to delete:", error);
-        }
-    }
-
     return (
         <>
             <div 
@@ -72,10 +65,14 @@ const Popup = ({ closePopup, quote = "", id = null }) => {
                     </button>
                     <button className="border mx-5 p-1 cursor-pointer" onClick={closePopup}>Cancel</button>
                     {id ? 
-                        <button onClick={deleteQuote} className="border p-1 cursor-pointer">Delete</button>
+                        <button onClick={() => setIsOpen(true)} className="border p-1 cursor-pointer">Delete</button>
                     : ''}
                 </div>
             </div>
+
+            {isOpen && (
+                <Dialog open={isOpen} onClose={() => setIsOpen(false)} note={false} quoteId={id} closePopup={closePopup} />
+            )}
         </>
     )
 };
