@@ -8,12 +8,6 @@ export default defineConfig({
   server: {
     proxy: {
       "/notes": "http://localhost:3000",
-      "/save": "http://localhost:3000",
-      "/note": "http://localhost:3000",
-      "/delete": "http://localhost:3000",
-      "/quotes/save": "http://localhost:3000",
-      "/quotes/update": "http://localhost:3000",
-      "/quotes/delete": "http://localhost:3000",
       "/quotes": "http://localhost:3000",
     }
   }
