@@ -18,7 +18,7 @@ const Dialog = ({ open, onClose, note, quoteId = null, closePopup }) => {
     }, [open]);
 
     const deleteNote = async () => {
-        const { data } = await axios.post(`/delete/${id}`);
+        const { data } = await axios.post(`/notes/delete/${id}`);
         navigate("/");
     };
 

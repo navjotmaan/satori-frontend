@@ -34,7 +34,7 @@ export default function Notes({ recording, stopRecording, startRecording, loadin
   }, []);
 
   const saveNote = async () => {
-    const { data } = await axios.post('/save', {
+    const { data } = await axios.post('/notes/save', {
       title: heading,
       content: text,
     });

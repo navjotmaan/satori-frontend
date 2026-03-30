@@ -10,7 +10,7 @@ const Journal = () => {
 
     useEffect(() => {
         const getNote = async () => {
-        const { data } = await axios.get(`/note/${id}`);
+        const { data } = await axios.get(`/notes/note/${id}`);
         setNote(data);
         };
 
