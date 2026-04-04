@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api/axiosInstance";
 
 const Dialog = ({ open, onClose, note, quoteId = null, closePopup }) => {
     
@@ -18,13 +18,13 @@ const Dialog = ({ open, onClose, note, quoteId = null, closePopup }) => {
     }, [open]);
 
     const deleteNote = async () => {
-        const { data } = await axios.post(`/notes/delete/${id}`);
+        const { data } = await api.post(`/notes/delete/${id}`);
         navigate("/");
     };
 
     const deleteQuote = async () => {
         try {
-            await axios.post(`/quotes/delete/${quoteId}`);
+            await api.post(`/quotes/delete/${quoteId}`);
             onClose();
             closePopup();
         } catch (error) {

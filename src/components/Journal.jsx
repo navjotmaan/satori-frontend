@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import axios from "axios";
+import api from "../api/axiosInstance";
 import { useParams } from "react-router-dom";
 import Dialog from "./Dialog";
 
@@ -10,7 +10,7 @@ const Journal = () => {
 
     useEffect(() => {
         const getNote = async () => {
-        const { data } = await axios.get(`/notes/note/${id}`);
+        const { data } = await api.get(`/notes/note/${id}`);
         setNote(data);
         };
 

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import axios from "axios";
+import api from "../../api/axiosInstance";
 import Dialog from "../Dialog";
 
 const Popup = ({ closePopup, quote = "", id = null }) => {
@@ -26,11 +26,11 @@ const Popup = ({ closePopup, quote = "", id = null }) => {
     const saveQuote = async () => {
         try {
             if (id) {
-                await axios.put(`/quotes/update/${id}`, {
+                await api.put(`/quotes/update/${id}`, {
                     quote: text,
                 });
             } else {
-                const { data } = await axios.post('/quotes/save', {
+                const { data } = await api.post('/quotes/save', {
                     quote: text,
                 });
             }

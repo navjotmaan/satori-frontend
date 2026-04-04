@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from '../api/axiosInstance';
 import { useState, useRef, useEffect } from "react";
 import mic from '../assets/microphone.png';
 import { useNavigate } from "react-router-dom";
@@ -34,7 +34,7 @@ export default function Notes({ recording, stopRecording, startRecording, loadin
   }, []);
 
   const saveNote = async () => {
-    const { data } = await axios.post('/notes/save', {
+    const { data } = await api.post('/notes/save', {
       title: heading,
       content: text,
     });

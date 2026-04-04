@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axiosInstance";
 import Popup from "./Popup";
 
 const QuoteSection = () => {
@@ -9,12 +9,12 @@ const QuoteSection = () => {
 
     useEffect(() => {
         const getQuotes = async () => {
-            const { data } = await axios.get('/quotes');
+            const { data } = await api.get('/quotes');
             setQuotes(data);
         };
 
         getQuotes();
-    }, [quotes]);
+    }, []);
 
     const handleEdit = (quote) => {
         setSelectedQuote(quote);
