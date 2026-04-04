@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from "../api/axiosInstance";
+import { useAuth } from '../api/AuthContext';
 import QuoteSection from './quotes/Sidebar';
 import Popup from './quotes/Popup';
 
@@ -9,11 +10,13 @@ function App() {
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
+  const { logout } = useAuth();
+
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   useEffect(() => {
     const getNotes = async () => {
-      const { data } = await axios.get('/notes');
+      const { data } = await api.get('/notes');
       setNotes(data);
     };
 
@@ -66,6 +69,7 @@ function App() {
       </div>
 
       <aside className='border-2 border-[#F2884B] rounded-xl basis-[40vw] h-[100vh] m-10 overflow-auto custom-scrollbar'>
+        <button className='rounded-lg py-1 px-3 bg-red-500 text-white cursor-pointer' onClick={logout}>Logout</button>
         <QuoteSection />
       </aside>
 
