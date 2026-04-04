@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
       );
       setAccessToken(res.data.accessToken);
       setApiAccessToken(res.data.accessToken);
-      console.log('Login successful, token set:', res.data.accessToken);
+      
       return res.data;
     } catch (err) {
       console.error('Login failed:', err.response?.data?.message || err.message);
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
     const initializeAuth = async () => {
       try {
         const res = await axios.post('/auth/refresh', {}, { withCredentials: true });
-        console.log('initializeAuth token:', res.data.accessToken);
+      
         setAccessToken(res.data.accessToken);
         setApiAccessToken(res.data.accessToken);
       } catch (err) {
