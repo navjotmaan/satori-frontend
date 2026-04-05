@@ -48,7 +48,7 @@ const Popup = ({ closePopup, quote = "", id = null }) => {
                 onClick={closePopup} 
             />
            
-            <div className='bg-[#D9564A] text-white w-[40%] min-h-50 p-10 rounded-xl fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50 shadow-2xl'>
+            <div className='bg-[#f2e9e4] w-[90%] md:w-[40%] min-h-50 p-10 rounded-xl fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50 shadow-2xl'>
                 <textarea 
                     ref={textareaRef}
                     value={text}
@@ -56,16 +56,15 @@ const Popup = ({ closePopup, quote = "", id = null }) => {
                     placeholder="Start writing…"
                     className='
                     min-h-50 w-full border-none outline-none resize-none
-                    placeholder:text-[#f2f2f2]
                     '
                 />
                 <div>
-                    <button className="border p-1 cursor-pointer" onClick={saveQuote}>
+                    <button className="min-w-20 rounded bg-[#3B9CD9] text-white p-1 cursor-pointer" onClick={saveQuote}>
                         {id ? "Update" : "Save"}
                     </button>
-                    <button className="border mx-5 p-1 cursor-pointer" onClick={closePopup}>Cancel</button>
+                    <button className="border rounded min-w-20 mx-3 p-1 cursor-pointer" onClick={closePopup}>Cancel</button>
                     {id ? 
-                        <button onClick={() => setIsOpen(true)} className="border p-1 cursor-pointer">Delete</button>
+                        <button onClick={() => setIsOpen(true)} className="rounded min-w-20 bg-red-500 text-white p-1 cursor-pointer">Delete</button>
                     : ''}
                 </div>
             </div>
