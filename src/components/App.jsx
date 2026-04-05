@@ -4,11 +4,13 @@ import api from "../api/axiosInstance";
 import { useAuth } from '../api/AuthContext';
 import QuoteSection from './quotes/Sidebar';
 import Popup from './quotes/Popup';
+import menu from '../assets/menu.png';
 
 function App() {
   const [notes, setNotes] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
   const { logout } = useAuth();
 
@@ -32,11 +34,17 @@ function App() {
   }
 
   return (
-    <div className='flex h-full px-10'>
-      <div className='basis-[80vw] min-h-[100vh]'>
+    <div className='md:flex relative h-full px-10'>
+      <div className='md:basis-[80vw] w-full min-h-[100vh]'>
         <header className='p-5 text-left my-5'>
-            <h1 className='font-bold text-2xl text-[#D9564A]'>My Media</h1>
-            <p className='text-lg mb-5 font-display'>We write to taste life twice.</p>
+            <div className='flex justify-between items-center'>
+              <div>
+                <h1 className='font-bold text-2xl text-[#D9564A]'>My Media</h1>
+                <p className='text-lg mb-5 font-display'>We write to taste life twice.</p>
+              </div>
+
+              <button className='block fixed right-5 top-5 cursor-pointer md:hidden text-xl' onClick={() => setToggle(!toggle)}><img src={menu} alt="Menu" className='w-6'></img></button>
+            </div>
 
             <div className='relative inline-block'>
               <button onClick={toggleDropdown} className='rounded-lg py-1 px-3 bg-[#3B9CD9] text-white cursor-pointer'>
@@ -53,10 +61,10 @@ function App() {
 
         </header>
 
-        <main className='flex flex-wrap gap-10 p-5'>
+        <main className='flex flex-wrap justify-center md:justify-start gap-10 p-5'>
           {notes.length !== 0 ? (
             notes.map(note => (
-              <Link to={`/${note.id}`} key={note.id} className='border-4 w-[300px] h-[100px] border-[#F2884B] rounded-lg p-5'>
+              <Link to={`/${note.id}`} key={note.id} className='border-4 w-full md:w-[300px] h-[100px] border-[#F2884B] rounded-lg p-5'>
                 <p>{getDate(note.updated_at)}</p>
                 <p>{note.title}</p>
               </Link>
@@ -68,10 +76,22 @@ function App() {
         </main>
       </div>
 
-      <aside className='border-2 border-[#F2884B] rounded-xl basis-[40vw] h-[100vh] m-10 overflow-auto custom-scrollbar'>
-        <button className='rounded-lg py-1 px-3 bg-red-500 text-white cursor-pointer' onClick={logout}>Logout</button>
+      {toggle || window.innerWidth >= 768 ? (
+
+        <aside className='border-2 border-[#F2884B] rounded-xl fixed inset-0 z-50 bg-[#f2e9e4] h-[100vh] m-5 mr-0 overflow-auto custom-scrollbar md:z-0 md:static md:m-10 md:block md:basis-[40vw]'>
+        {/* <button className='rounded-lg py-1 px-3 bg-red-500 text-white cursor-pointer' onClick={logout}>Logout
+          </ button>  */}
+          <button 
+          className="md:hidden absolute cursor-pointer top-1 right-2 text-xl" 
+          onClick={() => setToggle(false)}
+        >
+          ✕
+        </button>
         <QuoteSection />
       </aside>
+      ) : (
+        <></>
+      )}
 
       {showPopup && (
           <Popup closePopup={() => setShowPopup(false)}/>
