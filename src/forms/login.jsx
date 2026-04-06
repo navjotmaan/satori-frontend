@@ -64,6 +64,9 @@ const LoginForm = () => {
           >
             Login
           </button>
+
+          <p>Create an account <a href='/signup' className='text-blue-700 underline'>Sign up</a></p>
+          
         </div>
       </form>
     </div>
