@@ -25,16 +25,8 @@ function App() {
     getNotes();
   }, []);
 
-  function getDate(date) {
-    const dateObj = new Date(date);
-    return dateObj.toLocaleDateString('en-US', { 
-          month: 'short', 
-          day: 'numeric' 
-        });
-  }
-
   return (
-    <div className='md:flex relative h-full px-10'>
+    <div className='md:flex relative h-full mx-5'>
       <div className='md:basis-[80vw] w-full min-h-[100vh]'>
         <header className='p-5 text-left my-5'>
             <div className='flex justify-between items-center'>
@@ -64,9 +56,9 @@ function App() {
         <main className='flex flex-wrap justify-center md:justify-start gap-10 p-5'>
           {notes.length !== 0 ? (
             notes.map(note => (
-              <Link to={`/${note.id}`} key={note.id} className='border-4 w-full md:w-[300px] h-[100px] border-[#F2884B] rounded-lg p-5'>
-                <p>{getDate(note.updated_at)}</p>
-                <p>{note.title}</p>
+              <Link to={`/${note.id}`} key={note.id} className='border-2 w-full md:w-[340px] h-[100px] border-[#F2884B] flex flex-col justify-center rounded-lg p-2 px-3'>
+                <p className='text-xl font-semibold'>{note.title}</p>
+                <p>{note.content.substring(0, 50)}...</p>
               </Link>
             ))
           ) : 
@@ -78,9 +70,9 @@ function App() {
 
       {toggle || window.innerWidth >= 768 ? (
 
-        <aside className='border-2 border-[#F2884B] rounded-xl fixed inset-0 z-50 bg-[#f2e9e4] h-[100vh] m-5 mr-0 overflow-auto custom-scrollbar md:z-0 md:static md:m-10 md:block md:basis-[40vw]'>
-        {/* <button className='rounded-lg py-1 px-3 bg-red-500 text-white cursor-pointer' onClick={logout}>Logout
-          </ button>  */}
+        <aside className='border-2 border-[#F2884B] rounded-xl fixed inset-0 z-50 bg-[#f2e9e4] h-[100vh] m-5 mr-0 overflow-auto custom-scrollbar md:z-0 md:sticky md:h-[90vh] md:m-10 md:block md:w-[40vw]'>
+        <button className='rounded-lg py-1 px-3 bg-red-500 text-white cursor-pointer' onClick={logout}>Logout
+          </ button> 
           <button 
           className="md:hidden absolute cursor-pointer top-1 right-2 text-xl" 
           onClick={() => setToggle(false)}
