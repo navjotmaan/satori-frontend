@@ -34,7 +34,7 @@ export default function Notes({ recording, stopRecording, startRecording, loadin
   }, []);
 
   const saveNote = async () => {
-    const { data } = await api.post('/notes/save', {
+    await api.post('/notes/save', {
       title: heading,
       content: text,
     });
@@ -82,7 +82,8 @@ export default function Notes({ recording, stopRecording, startRecording, loadin
               placeholder:text-[#79736f]'
           />
           
-          {loading && <p className="text-blue-500 text-sm">Transcribing voice...</p>}
+          {recording ? <p className="text-orange-500">Listening...</p> : '' } 
+          {loading && <p className="text-blue-500">Transcribing voice...</p>}
 
           <textarea
             ref={textareaRef}
