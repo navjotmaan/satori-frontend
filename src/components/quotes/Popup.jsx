@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import api from "../../api/axiosInstance";
 import Dialog from "../Dialog";
 
-const Popup = ({ closePopup, quote = "", id = null }) => {
+const Popup = ({ closePopup, quote = "", id = null, onRefresh = () => {} }) => {
     const [text, setText] = useState(quote || "");
     const textareaRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
@@ -30,11 +30,13 @@ const Popup = ({ closePopup, quote = "", id = null }) => {
                     quote: text,
                 });
             } else {
-                const { data } = await api.post('/quotes/save', {
+                await api.post('/quotes/save', {
                     quote: text,
                 });
             }
+            onRefresh();
             closePopup();
+            
         }
         catch (error) {
             console.error("Failed to save:", error);
@@ -62,15 +64,17 @@ const Popup = ({ closePopup, quote = "", id = null }) => {
                     <button className="min-w-20 rounded bg-[#3B9CD9] text-white p-1 cursor-pointer" onClick={saveQuote}>
                         {id ? "Update" : "Save"}
                     </button>
+
                     <button className="border rounded min-w-20 mx-3 p-1 cursor-pointer" onClick={closePopup}>Cancel</button>
+
                     {id ? 
-                        <button onClick={() => setIsOpen(true)} className="rounded min-w-20 bg-red-500 text-white p-1 cursor-pointer">Delete</button>
+                    <button onClick={() => setIsOpen(true)} className="rounded min-w-20 bg-red-500 text-white p-1 cursor-pointer">Delete</button>
                     : ''}
                 </div>
             </div>
 
             {isOpen && (
-                <Dialog open={isOpen} onClose={() => setIsOpen(false)} note={false} quoteId={id} closePopup={closePopup} />
+                <Dialog open={isOpen} onClose={() => setIsOpen(false)} note={false} quoteId={id} closePopup={closePopup} onRefresh={onRefresh} />
             )}
         </>
     )

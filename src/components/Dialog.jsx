@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/axiosInstance";
 
-const Dialog = ({ open, onClose, note, quoteId = null, closePopup }) => {
+const Dialog = ({ open, onClose, note, quoteId = null, closePopup, onRefresh = () => {} }) => {
     
     const { id } = useParams();
     const dialogRef = useRef(null);
@@ -18,7 +18,7 @@ const Dialog = ({ open, onClose, note, quoteId = null, closePopup }) => {
     }, [open]);
 
     const deleteNote = async () => {
-        const { data } = await api.post(`/notes/delete/${id}`);
+        await api.post(`/notes/delete/${id}`);
         navigate("/");
     };
 
@@ -27,6 +27,7 @@ const Dialog = ({ open, onClose, note, quoteId = null, closePopup }) => {
             await api.post(`/quotes/delete/${quoteId}`);
             onClose();
             closePopup();
+            onRefresh();
         } catch (error) {
             console.error("Failed to delete:", error);
         }
