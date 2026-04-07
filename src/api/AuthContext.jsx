@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from 'react';
-import axios from 'axios';
+import api from './axiosInstance';
 import { setApiAccessToken } from './axiosInstance';
 
 const AuthContext = createContext();
@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const signup = async (name, email, password) => {
     setLoading(true);
     try {
-      const res = await axios.post(
+      const res = await api.post(
         '/auth/signup',
         { name, email, password },
         { withCredentials: true }
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     setLoading(true);
     try {
-      const res = await axios.post(
+      const res = await api.post(
         '/auth/login',
         { email, password },
         { withCredentials: true }
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     setLoading(true);
     try {
-      await axios.post('/auth/logout', {}, { withCredentials: true });
+      await api.post('/auth/logout', {}, { withCredentials: true });
     } catch (err) {
       console.error('Logout failed:', err.response?.data?.message || err.message);
     } finally {
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
-        const res = await axios.post('/auth/refresh', {}, { withCredentials: true });
+        const res = await api.post('/auth/refresh', {}, { withCredentials: true });
       
         setAccessToken(res.data.accessToken);
         setApiAccessToken(res.data.accessToken);
