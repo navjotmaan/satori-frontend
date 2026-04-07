@@ -82,8 +82,8 @@ function App() {
       {toggle || window.innerWidth >= 768 ? (
 
         <aside className='border-2 border-[#F2884B] rounded-xl fixed inset-0 z-50 bg-[#f2e9e4] h-[100vh] m-5 mr-0 overflow-auto custom-scrollbar md:z-0 md:sticky md:h-[90vh] md:m-10 md:block md:w-[40vw]'>
-        <button className='rounded-lg py-1 px-3 bg-red-500 text-white cursor-pointer' onClick={logout}>Logout
-          </ button> 
+        {/* <button className='rounded-lg py-1 px-3 bg-red-500 text-white cursor-pointer' onClick={logout}>Logout
+          </ button>  */}
           <button 
           className="md:hidden absolute cursor-pointer top-1 right-2 text-xl" 
           onClick={() => setToggle(false)}
