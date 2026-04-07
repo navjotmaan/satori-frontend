@@ -9,7 +9,8 @@ export default defineConfig({
     proxy: {
       "/notes": "http://localhost:3000",
       "/quotes": "http://localhost:3000",
-      "/auth": "http://localhost:3000"
+      "/auth": "http://localhost:3000",
+      "/api": "http://localhost:3000"
     }
   }
 })

@@ -44,7 +44,7 @@ const AudioRecorder = () => {
     formData.append('audio', blob, 'user_recording.mp3');
 
     try {
-      const response = await axios.post('http://localhost:3000/api/transcribe', formData, {
+      const response = await axios.post('/api/transcribe', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       setTranscript(response.data.text);
