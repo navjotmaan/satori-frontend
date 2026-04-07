@@ -1,22 +1,23 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import './index.css'
-import { AuthProvider } from './api/AuthContext.jsx'
-import Journal from './components/Journal.jsx'
-import Error from './components/ErrorElement.jsx'
-import AudioRecorder from './components/speech-to-text/AudioRecorder.jsx'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { AuthProvider } from './api/AuthContext.jsx';
+import Journal from './components/Journal.jsx';
+import Error from './components/ErrorElement.jsx';
+import AudioRecorder from './components/speech-to-text/AudioRecorder.jsx';
 import LoginForm from './forms/login.jsx';
 import SignupForm from './forms/signup.jsx';
-import Dashboard from './components/Dashboard.jsx';
+import App from './components/App.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+import './index.css';
 
 const router = createBrowserRouter([
   {
     errorElement: <Error />,
     children: [
-      { path: '/', element: <Dashboard /> },
-      { path: 'new', element: <AudioRecorder /> },
-      { path: ':id', element: <Journal /> },
+      { path: '/', element: <ProtectedRoute><App /></ProtectedRoute> },
+      { path: 'new', element: <ProtectedRoute><AudioRecorder /></ProtectedRoute> },
+      { path: ':id', element: <ProtectedRoute><Journal /></ProtectedRoute> },
       { path: 'login', element: <LoginForm /> },
       { path: 'signup', element: <SignupForm /> },
     ],
