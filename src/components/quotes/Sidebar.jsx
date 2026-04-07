@@ -1,20 +1,9 @@
-import { useEffect, useState } from "react";
-import api from "../../api/axiosInstance";
+import { useState } from "react";
 import Popup from "./Popup";
 
-const QuoteSection = () => {
-    const [quotes, setQuotes] = useState([]);
+const QuoteSection = ({ quotes, onRefresh }) => {
     const [showPopup, setShowPopup] = useState(false);
     const [selectedQuote, setSelectedQuote] = useState(null);
-
-    useEffect(() => {
-        const getQuotes = async () => {
-            const { data } = await api.get('/quotes');
-            setQuotes(data);
-        };
-
-        getQuotes();
-    }, []);
 
     const handleEdit = (quote) => {
         setSelectedQuote(quote);
@@ -39,7 +28,9 @@ const QuoteSection = () => {
                 <Popup 
                     id={selectedQuote?.id}
                     quote={selectedQuote?.quote}
-                    closePopup={() => setShowPopup(false)} />
+                    closePopup={() => setShowPopup(false)}
+                    onRefresh={onRefresh}
+                />
             )}
         </div>
     )

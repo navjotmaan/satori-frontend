@@ -8,6 +8,7 @@ import menu from '../assets/menu.png';
 
 function App() {
   const [notes, setNotes] = useState([]);
+  const [quotes, setQuotes] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [toggle, setToggle] = useState(false);
@@ -16,6 +17,15 @@ function App() {
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
+  const fetchQuotes = async () => {
+    try {
+      const res = await api.get('/quotes');
+      setQuotes([...res.data]);
+    } catch (error) {
+      console.error("Failed to fetch quotes:", error);
+    }
+  };
+
   useEffect(() => {
     const getNotes = async () => {
       const { data } = await api.get('/notes');
@@ -23,6 +33,7 @@ function App() {
     };
 
     getNotes();
+    fetchQuotes();
   }, []);
 
   return (
@@ -79,14 +90,14 @@ function App() {
         >
           ✕
         </button>
-        <QuoteSection />
+        <QuoteSection quotes={quotes} onRefresh={fetchQuotes} />
       </aside>
       ) : (
         <></>
       )}
 
       {showPopup && (
-          <Popup closePopup={() => setShowPopup(false)}/>
+        <Popup closePopup={() => setShowPopup(false)} onRefresh={fetchQuotes}/>
       )}
     </div>
   )
