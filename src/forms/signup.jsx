@@ -1,11 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../api/AuthContext';
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
-  const { signup } = useAuth();
+  const { signup, accessToken } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate('/');
+    }
+  }, [accessToken, navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
