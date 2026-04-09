@@ -14,16 +14,13 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
-  } else {
-    console.log('No accessToken, no Authorization header added');
-  }
+  } 
   return config;
 });
 
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log('API Response Error:', error.response?.status, error.response?.data);
     const originalRequest = error.config;
 
     const isAuthRoute = originalRequest.url?.includes('/auth/');
@@ -42,7 +39,6 @@ api.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${res.data.accessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
-        console.log('Refresh failed:', refreshError.response?.status, refreshError.response?.data);
         setApiAccessToken(null);
         window.location.href = '/login';
         return Promise.reject(refreshError);
