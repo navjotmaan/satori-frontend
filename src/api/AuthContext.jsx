@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }) => {
 
     initializeAuth();
   }, []);
-
+  
   return (
     <AuthContext.Provider value={{ accessToken, setAccessToken, signup, login, logout, loading }}>
       {loading ? <div>Loading...</div> : children}
