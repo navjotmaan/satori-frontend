@@ -1,14 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Popup from "./Popup";
+import api from "../../api/axiosInstance";
 
-const QuoteSection = ({ quotes, onRefresh }) => {
+const QuoteSection = () => {
     const [showPopup, setShowPopup] = useState(false);
+    const [quotes, setQuotes] = useState([]);
     const [selectedQuote, setSelectedQuote] = useState(null);
 
     const handleEdit = (quote) => {
         setSelectedQuote(quote);
         setShowPopup(true);
-    }
+    };
+
+    const fetchQuotes = async () => {
+        try {
+            const res = await api.get('/quotes');
+            setQuotes([...res.data]);
+        } catch (error) {
+            console.error("Failed to fetch quotes:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchQuotes();
+    }, []);
 
     return (
         <div>
@@ -29,7 +44,7 @@ const QuoteSection = ({ quotes, onRefresh }) => {
                     id={selectedQuote?.id}
                     quote={selectedQuote?.quote}
                     closePopup={() => setShowPopup(false)}
-                    onRefresh={onRefresh}
+                    onRefresh={fetchQuotes}
                 />
             )}
         </div>
