@@ -2,15 +2,15 @@
 
 body {
   text-align: center;
-  background-color: #f2e9e4;
+  background-color: #FFF8F0;
   min-height: 100vh;
 }
 
 @theme {
   --font-sans: "Nunito", "Lato", "ui-sans-serif", "system-ui";
   --font-handwriting: "Playwrite NZ Basic", "cursive";
-  --font-display: "Quintessential", "Oswald", "serif";
-  --font-pro: "SN Pro", "sans-serif";
+  --font-display: "MonteCarlo", "Quintessential", "Oswald", "serif";
+  --font-pro: "Momo Trust Display", "SN Pro", "sans-serif";
 }
 
 @layer base {
