@@ -9,13 +9,20 @@ import LoginForm from './forms/login.jsx';
 import SignupForm from './forms/signup.jsx';
 import App from './components/App.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import Layout from './components/Layout.jsx';
+import QuoteSection from './components/quotes/Quotes.jsx';
 import './index.css';
 
 const router = createBrowserRouter([
   {
     errorElement: <Error />,
     children: [
-      { path: '/', element: <ProtectedRoute><App /></ProtectedRoute> },
+      { element: <Layout />, children: [
+        { path: '/', element: <ProtectedRoute><App /></ProtectedRoute> },
+        { path: '/nuggets', element: <ProtectedRoute><QuoteSection /></ProtectedRoute> },
+      ],
+      },
+      
       { path: 'new', element: <ProtectedRoute><AudioRecorder /></ProtectedRoute> },
       { path: ':id', element: <ProtectedRoute><Journal /></ProtectedRoute> },
       { path: 'login', element: <LoginForm /> },
