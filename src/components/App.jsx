@@ -12,9 +12,16 @@ function App() {
   useEffect(() => {
     const getNotes = async () => {
       const { data } = await api.get('/notes');
-      const user = data[0].name;
-      setUserName(user.slice(0, user.indexOf(" ")));
-      setNotes(data);
+      const user = data.name;
+      
+      if (user) {
+        const firstName = user.includes(" ") 
+          ? user.slice(0, user.indexOf(" ")) 
+          : user;
+        setUserName(firstName);
+      }
+
+      setNotes(data.notes);
     };
 
     getNotes();
@@ -47,7 +54,7 @@ function App() {
             </Link>
           ))
         ) : 
-          <p className='m-auto mt-10 font-handwriting'>Your journals will appear here.</p>
+          <p className='m-auto mt-20 text-[#919191] font-handwriting'>Your journals will appear here.</p>
         }
         
       </main>
