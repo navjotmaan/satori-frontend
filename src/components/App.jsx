@@ -1,23 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import api from "../api/axiosInstance";
 
 function App() {
   const [notes, setNotes] = useState([]);
-  const { setUserName } = useOutletContext();
 
   useEffect(() => {
     const getNotes = async () => {
       const { data } = await api.get('/notes');
-      const user = data.name;
-      
-      if (user) {
-        const firstName = user.includes(" ") 
-          ? user.slice(0, user.indexOf(" ")) 
-          : user;
-        setUserName(firstName);
-      }
-
       setNotes(data.notes);
     };
 
