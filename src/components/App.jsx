@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import api from "../api/axiosInstance";
-import { useAuth } from '../api/AuthContext';
 
 function App() {
   const [notes, setNotes] = useState([]);
-  const [userName, setUserName] = useState('');
-
-  const { logout } = useAuth();
+  const { setUserName } = useOutletContext();
 
   useEffect(() => {
     const getNotes = async () => {
@@ -37,10 +34,6 @@ function App() {
 
   return (
     <div className='w-full min-h-[100vh] p-10'>
-      <header className='text-left pb-10'>
-        <h1 className='font-pro text-5xl text-[#2B2D42]'>{userName}'s Media</h1>
-        <p className='text-3xl text-[#6B705C] font-display'>We write to taste life twice.</p>
-      </header>
 
       <main className='flex flex-wrap justify-center md:justify-start gap-10'>
         {notes.length !== 0 ? (
