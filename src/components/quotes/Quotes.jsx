@@ -1,24 +1,16 @@
 import { useState, useEffect } from "react";
 import Popup from "./Popup";
-import api from "../../api/axiosInstance";
+import { useOutletContext } from "react-router-dom";
 
 const QuoteSection = () => {
     const [showPopup, setShowPopup] = useState(false);
-    const [quotes, setQuotes] = useState([]);
     const [selectedQuote, setSelectedQuote] = useState(null);
+
+    const { quotes, fetchQuotes } = useOutletContext();
 
     const handleEdit = (quote) => {
         setSelectedQuote(quote);
         setShowPopup(true);
-    };
-
-    const fetchQuotes = async () => {
-        try {
-            const res = await api.get('/quotes');
-            setQuotes([...res.data]);
-        } catch (error) {
-            console.error("Failed to fetch quotes:", error);
-        }
     };
 
     useEffect(() => {
@@ -27,15 +19,16 @@ const QuoteSection = () => {
 
     return (
         <div>
-            <div className="flex flex-col gap-4 pt-2">
+            <div className="flex flex-col items-center gap-4 pb-10">
                 {quotes.length !== 0 ? (
                     quotes.map(quote => (
-                        <p key={quote.id} onClick={() => handleEdit(quote)} className="border-b border-b-[#c9ada7] px-5 py-2 cursor-pointer">
-                            {quote.quote}
-                        </p>
+                        <div key={quote.id} onClick={() => handleEdit(quote)} className="w-[60%] mt-5 border border-[#8C5A3C] shadow-[0_6px_4px_rgba(0,0,0,0.2)] rounded-[30px] p-6 cursor-pointer">
+                            <p>{quote.created_at}</p>
+                            <p className="text-start">{quote.quote}</p>
+                        </div>
                     ))
                 ) : 
-                    <p className="mt-10 font-handwriting">Your notes will appear here.</p>
+                    <p className="m-auto mt-40 text-[#919191] font-handwriting">Your notes will appear here.</p>
                 }
             </div>
 

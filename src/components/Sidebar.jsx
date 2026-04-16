@@ -2,20 +2,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Popup from './quotes/Popup';
 
-const Sidebar = () => {
+const Sidebar = ({ fetchQuotes }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
 
     const toggleDropdown = () => setIsOpen(!isOpen);
-
-    const fetchQuotes = async () => {
-        try {
-        const res = await api.get('/quotes');
-        setQuotes([...res.data]);
-        } catch (error) {
-        console.error("Failed to fetch quotes:", error);
-        }
-    };
 
     return (
         <div className="relative bg-[#4B2E2B] flex md:flex-col items-center justify-around mt-5 m-auto md:w-20 md:h-80 w-100 rounded-[40px] text-[#FFF8F0] md:m-50 md:mx-10 py-5 shadow-[2px_4px_4px_rgba(0,0,0,0.2)]">
@@ -40,7 +31,7 @@ const Sidebar = () => {
             )}
 
             {showPopup && (
-                <Popup closePopup={() => setShowPopup(false)} onRefresh={fetchQuotes}/>
+                <Popup closePopup={() => setShowPopup(false)} onRefresh={fetchQuotes} />
             )}
         </div>
 
