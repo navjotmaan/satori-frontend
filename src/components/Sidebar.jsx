@@ -21,10 +21,12 @@ const Sidebar = ({ fetchQuotes }) => {
             
             <svg onClick={toggleDropdown} className="hover:stroke-[#B5651D] lucide lucide-circle-plus-icon lucide-circle-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
 
+            <Link to='/profile'>
             <svg className="hover:stroke-[#B5651D] lucide lucide-user-icon lucide-user" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </Link>
 
             {isOpen && (
-                <div onClick={() => setIsOpen(false)} className='absolute bottom-22 left-15 rounded-lg px-2 flex flex-col items-center justify-center m-auto z-50 bg-[#FFF8F0] border border-[#4B2E2B] text-[#4B2E2B]'>
+                <div onClick={() => setIsOpen(false)} className='absolute md:bottom-22 md:left-15 left-37 rounded-lg px-2 flex flex-col items-center justify-center m-auto z-50 bg-[#FFF8F0] border border-[#4B2E2B] text-[#4B2E2B]'>
                     <Link to='new' className='rounded-lg py-1 px-3'>Journal</Link>
                     <button onClick={() => setShowPopup(true)} className="rounded-xl p-1 px-2 cursor-pointer">Note</button>
                 </div>
