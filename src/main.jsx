@@ -11,6 +11,7 @@ import App from './components/App.jsx';
 import ProtectedRoute from './helpers/ProtectedRoute.jsx';
 import Layout from './components/Layout.jsx';
 import QuoteSection from './components/quotes/Quotes.jsx';
+import Logout from './Profile.jsx';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
     children: [
       { element: <Layout />, children: [
         { path: '/', element: <ProtectedRoute><App /></ProtectedRoute> },
-        { path: '/nuggets', element: <ProtectedRoute><QuoteSection /></ProtectedRoute> },
+        { path: 'nuggets', element: <ProtectedRoute><QuoteSection /></ProtectedRoute> },
+        { path: 'profile', element: <ProtectedRoute><Logout /></ProtectedRoute> },
       ],
       },
       
@@ -27,6 +29,7 @@ const router = createBrowserRouter([
       { path: ':id', element: <ProtectedRoute><Journal /></ProtectedRoute> },
       { path: 'login', element: <LoginForm /> },
       { path: 'signup', element: <SignupForm /> },
+      
     ],
   },
 ]);
