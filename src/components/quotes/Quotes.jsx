@@ -22,7 +22,7 @@ const QuoteSection = () => {
             <div className="flex flex-col items-center gap-4 pb-10">
                 {quotes.length !== 0 ? (
                     quotes.map(quote => (
-                        <div key={quote.id} onClick={() => handleEdit(quote)} className="w-[60%] mt-5 border border-[#8C5A3C] shadow-[0_6px_4px_rgba(0,0,0,0.2)] rounded-[30px] p-6 cursor-pointer">
+                        <div key={quote.id} onClick={() => handleEdit(quote)} className="w-[80%] md:w-[60%] mt-5 border border-[#8C5A3C] shadow-[0_6px_4px_rgba(0,0,0,0.2)] rounded-[30px] p-6 cursor-pointer">
                             <p>{quote.created_at}</p>
                             <p className="text-start">{quote.quote}</p>
                         </div>
