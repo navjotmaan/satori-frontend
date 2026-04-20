@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthProvider } from './api/AuthContext.jsx';
+import { JournalProvider } from './components/JournalContext.jsx';
 import Journal from './components/Journal.jsx';
 import Error from './helpers/ErrorElement.jsx';
 import AudioRecorder from './components/speech-to-text/AudioRecorder.jsx';
@@ -37,7 +38,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <JournalProvider>
+        <RouterProvider router={router} />
+      </JournalProvider>
     </AuthProvider>
   </StrictMode>,
 )
