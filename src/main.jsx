@@ -12,7 +12,7 @@ import App from './components/App.jsx';
 import ProtectedRoute from './helpers/ProtectedRoute.jsx';
 import Layout from './components/Layout.jsx';
 import QuoteSection from './components/quotes/Quotes.jsx';
-import Logout from './Profile.jsx';
+import Logout from './components/Profile.jsx';
 import './index.css';
 
 const router = createBrowserRouter([

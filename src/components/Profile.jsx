@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom";
-import { useAuth } from "./api/AuthContext";
+import { useAuth } from "../api/AuthContext";
 
 const Logout = () => {
     const { userName, email } = useOutletContext(); 
