@@ -2,10 +2,13 @@ import api from '../api/axiosInstance';
 import { useState, useRef, useEffect } from "react";
 import mic from '../assets/microphone.png';
 import { useNavigate } from "react-router-dom";
+import { useJournal } from "./JournalContext";
 
 export default function Notes({ recording, stopRecording, startRecording, loading, transcript }) {
-  const [heading, setHeading] = useState("");
-  const [text, setText] = useState("");
+  const { activeNote } = useJournal();
+
+  const [heading, setHeading] = useState(activeNote.title || "");
+  const [text, setText] = useState(activeNote.content || "");
   const headingareaRef = useRef(null);
   const textareaRef = useRef(null);
   const navigate = useNavigate();
@@ -34,12 +37,23 @@ export default function Notes({ recording, stopRecording, startRecording, loadin
   }, []);
 
   const saveNote = async () => {
-    await api.post('/notes/save', {
-      title: heading,
-      content: text,
-    });
-
-    navigate("/");
+    try {
+      if (activeNote.id) {
+        await api.put(`/notes/update/${activeNote.id}`, {
+          title: heading,
+          content: text,
+        });
+      } else {
+        await api.post('/notes/save', {
+          title: heading,
+          content: text,
+        });
+      }
+      navigate("/");
+    }
+    catch (error) {
+      console.error("Failed to save:", error);
+    }
   };
 
   const today = new Date().toLocaleDateString("en-US", {
