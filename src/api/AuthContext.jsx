@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
   
   return (
     <AuthContext.Provider value={{ accessToken, setAccessToken, signup, login, logout, loading }}>
-      {loading ? <div>Loading...</div> : children}
+      {loading ? <div className='mt-50'>Loading...</div> : children}
     </AuthContext.Provider>
   );
 };
