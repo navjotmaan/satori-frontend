@@ -9,7 +9,7 @@ const SignupForm = () => {
 
   useEffect(() => {
     if (accessToken) {
-      navigate('/');
+      navigate('/dashboard');
     }
   }, [accessToken, navigate]);
 
@@ -30,7 +30,7 @@ const SignupForm = () => {
 
     try {
       await signup(name, email, password);
-      navigate('/');
+      navigate('/dashboard');
     } catch (err) {
       alert('Signup failed! Please try again.');
     }

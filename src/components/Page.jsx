@@ -49,7 +49,7 @@ export default function Notes({ recording, stopRecording, startRecording, loadin
           content: text,
         });
       }
-      navigate("/");
+      navigate("/dashboard");
     }
     catch (error) {
       console.error("Failed to save:", error);
@@ -71,7 +71,7 @@ export default function Notes({ recording, stopRecording, startRecording, loadin
         </span>
 
         <div className="flex gap-5">
-          <img src={mic} className={`h-8 cursor-pointer ${recording ? 'animate-pulse opacity-50' : ''}`}
+          <img src={mic} className={`h-6 cursor-pointer ${recording ? 'animate-pulse opacity-50' : ''}`}
             title={recording ? 'Stop Recording' : 'Record Voice'}
             onClick={recording ? stopRecording : startRecording} />
 

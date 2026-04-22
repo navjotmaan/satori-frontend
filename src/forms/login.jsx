@@ -9,7 +9,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (accessToken) {
-      navigate('/');
+      navigate('/dashboard');
     }
   }, [accessToken, navigate]);
 
@@ -30,7 +30,7 @@ const LoginForm = () => {
 
     try {
       await login(email, password);
-      navigate('/');
+      navigate('/dashboard');
     } catch (err) {
       alert('Login failed! Please check your credentials.');
     }
