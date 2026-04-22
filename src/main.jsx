@@ -14,21 +14,23 @@ import Layout from './components/Layout.jsx';
 import QuoteSection from './components/quotes/Quotes.jsx';
 import Logout from './components/Profile.jsx';
 import './index.css';
+import Home from './components/Home.jsx';
 
 const router = createBrowserRouter([
   {
     errorElement: <Error />,
     children: [
       { element: <Layout />, children: [
-        { path: '/', element: <ProtectedRoute><App /></ProtectedRoute> },
+        { path: '/dashboard', element: <ProtectedRoute><App /></ProtectedRoute> },
         { path: 'nuggets', element: <ProtectedRoute><QuoteSection /></ProtectedRoute> },
         { path: 'profile', element: <ProtectedRoute><Logout /></ProtectedRoute> },
       ],
       },
       
+      { path: '/', element: <Home /> },
       { path: 'new', element: <ProtectedRoute><AudioRecorder /></ProtectedRoute> },
       { path: ':id', element: <ProtectedRoute><Journal /></ProtectedRoute> },
-      { path: 'login', element: <LoginForm /> },
+      { path: 'signin', element: <LoginForm /> },
       { path: 'signup', element: <SignupForm /> },
       
     ],
