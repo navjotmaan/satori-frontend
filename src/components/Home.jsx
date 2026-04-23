@@ -1,9 +1,14 @@
 import homeImage from '../assets/HomeImage.png';
 import journals from '../assets/journals.png';
 import quotes from '../assets/quotes.png';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useAuth } from '../api/AuthContext';
 
 const Home = () => {
+  const { accessToken } = useAuth();
+
+  if (accessToken) return <Navigate to='/dashboard' replace />;
+
   return (
     <div className='relative font-body bg-[#FFFFFF] w-full h-full'>
 
