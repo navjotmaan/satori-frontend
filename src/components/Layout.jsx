@@ -43,7 +43,7 @@ const Layout = () => {
             <Sidebar fetchQuotes={fetchQuotes} />
             <main className="flex-1 ">
                 <header className='text-left p-10'>
-                    <h1 className='font-pro text-5xl text-[#2B2D42]'>{firstName}'s Media</h1>
+                    <h1 className='font-pro text-4xl md:text-5xl text-[#2B2D42]'>{firstName}'s Media</h1>
                     <p className='text-3xl text-[#6B705C] font-display'>We write to taste life twice.</p>
                 </header>
                 <Outlet context={{ userName, email, quotes, fetchQuotes }} />

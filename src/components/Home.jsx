@@ -14,7 +14,7 @@ const Home = () => {
 
       <img src={homeImage} alt="Home" className='object-contain w-full h-full' />
 
-      <span className='absolute w-[100%] top-5 md:top-10 text-[#FDF0D5] flex justify-between px-10 items-center'>
+      <span className='absolute w-[100%] top-5 md:top-10 text-[#FDF0D5] flex justify-between md:px-10 px-2 items-center'>
         <h1 className='text-3xl md:text-6xl font-home tracking-[0.2em]'>Satori</h1>
 
         <span className='flex gap-5 md:gap-10 md:text-lg items-center'>
