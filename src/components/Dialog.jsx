@@ -18,13 +18,13 @@ const Dialog = ({ open, onClose, note, quoteId = null, closePopup, onRefresh = (
     }, [open]);
 
     const deleteNote = async () => {
-        await api.post(`/notes/delete/${id}`);
+        await api.delete(`/notes/${id}`);
         navigate("/dashboard");
     };
 
     const deleteQuote = async () => {
         try {
-            await api.post(`/quotes/delete/${quoteId}`);
+            await api.delete(`/quotes/${quoteId}`);
             onClose();
             closePopup();
             onRefresh();

@@ -39,12 +39,12 @@ export default function Notes({ recording, stopRecording, startRecording, loadin
   const saveNote = async () => {
     try {
       if (activeNote.id) {
-        await api.put(`/notes/update/${activeNote.id}`, {
+        await api.put(`/notes/${activeNote.id}`, {
           title: heading,
           content: text,
         });
       } else {
-        await api.post('/notes/save', {
+        await api.post('/notes', {
           title: heading,
           content: text,
         });

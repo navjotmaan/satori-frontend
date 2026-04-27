@@ -26,11 +26,11 @@ const Popup = ({ closePopup, quote = "", id = null, onRefresh = () => {} }) => {
     const saveQuote = async () => {
         try {
             if (id) {
-                await api.put(`/quotes/update/${id}`, {
+                await api.put(`/quotes/${id}`, {
                     quote: text,
                 });
             } else {
-                await api.post('/quotes/save', {
+                await api.post('/quotes', {
                     quote: text,
                 });
             }

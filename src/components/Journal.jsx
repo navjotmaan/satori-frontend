@@ -16,7 +16,7 @@ const Journal = () => {
 
     useEffect(() => {
         const getNote = async () => {
-            const { data } = await api.get(`/notes/note/${id}`);
+            const { data } = await api.get(`/notes/${id}`);
             setNote(data);
             setActiveNote({id: id, title: data.title, content: data.content});
         };
