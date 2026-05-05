@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
-import axios from 'axios';
 import Notes from '../Page';
+import api from '../../api/axiosInstance';
 
 const AudioRecorder = () => {
   const [recording, setRecording] = useState(false);
@@ -44,7 +44,7 @@ const AudioRecorder = () => {
     formData.append('audio', blob, 'user_recording.mp3');
 
     try {
-      const response = await axios.post('/api/transcribe', formData, {
+      const response = await api.post('/api/transcribe', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       setTranscript(response.data.text);
