@@ -1,17 +1,30 @@
 import api from '../api/axiosInstance';
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, act } from "react";
 import mic from '../assets/microphone.png';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useJournal } from "./JournalContext";
 
-export default function Notes({ recording, stopRecording, startRecording, loading, transcript }) {
+const Notes = ({ recording, stopRecording, startRecording, loading, transcript }) => {
   const { activeNote } = useJournal();
+  const searchParams = useSearchParams();
 
-  const [heading, setHeading] = useState(activeNote.title || "");
-  const [text, setText] = useState(activeNote.content || "");
+  const [heading, setHeading] = useState("");
+  const [text, setText] = useState("");
   const headingareaRef = useRef(null);
   const textareaRef = useRef(null);
   const navigate = useNavigate();
+  const editId = searchParams[0].get('edit');
+
+  useEffect(() => {
+    // If user is on edit page, populate the fields with the active note's data
+    if (editId) {
+      setHeading(activeNote.title ?? "");
+      setText(activeNote.content ?? "");
+    } else {
+      setHeading("");
+      setText("");
+    }
+  }, [editId]);
 
   useEffect(() => {
     if (transcript) {
@@ -38,8 +51,8 @@ export default function Notes({ recording, stopRecording, startRecording, loadin
 
   const saveNote = async () => {
     try {
-      if (activeNote.id) {
-        await api.put(`/notes/${activeNote.id}`, {
+      if (activeNote.id && editId) {
+        await api.put(`/notes/${editId}`, {
           title: heading,
           content: text,
         });
@@ -118,4 +131,6 @@ export default function Notes({ recording, stopRecording, startRecording, loadin
       </div>
     </div>
   );
-}
+};
+
+export default Notes;
