@@ -40,9 +40,9 @@ const Journal = () => {
             {dropdownOpen && (
                 <div onClick={() => setDropdownOpen(false)} className='absolute top-8 right-15 rounded-lg px-2 flex flex-col items-center justify-center w-20 bg-[#FFF8F0] border border-[#4B2E2B] text-[#4B2E2B]'>
                     <Link to={`/new?edit=${id}`}>
-                        <button onClick={() => setActiveNote({ id: note.id, title: note.title, content: note.content })} className='rounded-lg py-1 px-3 cursor-pointer'>Edit</button>
+                        <button onClick={() => setActiveNote({ id: note.id, title: note.title, content: note.content })} className='rounded-lg py-1 px-3 cursor-pointer hover:font-bold'>Edit</button>
                     </Link>
-                    <button onClick={() => setIsOpen(true)} className="rounded-xl p-1 px-2 cursor-pointer">Delete</button>
+                    <button onClick={() => setIsOpen(true)} className="rounded-xl p-1 px-2 cursor-pointer hover:font-bold">Delete</button>
                 </div>
             )}
         </div>

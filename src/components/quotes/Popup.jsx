@@ -61,14 +61,16 @@ const Popup = ({ closePopup, quote = "", id = null, onRefresh = () => {} }) => {
                     '
                 />
                 <div>
-                    <button className="min-w-20 rounded-lg bg-[#6B705C] text-white p-1 cursor-pointer" onClick={saveQuote}>
+                    <button className="min-w-20 rounded-lg bg-[#6B705C] text-white p-1 cursor-pointer transform active:scale-95 transition-transform duration-100 hover:scale-105" onClick={saveQuote}>
                         {id ? "Update" : "Save"}
                     </button>
 
-                    <button className="border rounded-lg min-w-20 mx-3 p-1 cursor-pointer" onClick={closePopup}>Cancel</button>
+                    <button className="border rounded-lg min-w-20 mx-3 p-1 cursor-pointer transform active:scale-95 transition-transform duration-100 hover:scale-105" onClick={closePopup}>
+                        Cancel
+                    </button>
 
                     {id ? 
-                    <button onClick={() => setIsOpen(true)} className="rounded-lg min-w-20 bg-red-500 text-white p-1 cursor-pointer">Delete</button>
+                    <button onClick={() => setIsOpen(true)} className="rounded-lg min-w-20 bg-red-500 text-white p-1 cursor-pointer transform active:scale-95 transition-transform duration-100 hover:scale-105">Delete</button>
                     : ''}
                 </div>
             </div>

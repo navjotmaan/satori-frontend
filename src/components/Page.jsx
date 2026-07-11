@@ -84,13 +84,13 @@ const Notes = ({ recording, stopRecording, startRecording, loading, transcript }
         </span>
 
         <div className="flex gap-5">
-          <img src={mic} className={`h-6 cursor-pointer ${recording ? 'animate-pulse opacity-50' : ''}`}
+          <img src={mic} className={`h-6 text-bold cursor-pointer ${recording ? 'animate-pulse opacity-50' : ''}`}
             title={recording ? 'Stop Recording' : 'Record Voice'}
             onClick={recording ? stopRecording : startRecording} />
 
           <button
             onClick={saveNote}
-            className="border rounded px-2 cursor-pointer">
+            className="bg-[#2c2825] text-[#faf9f6] font-semibold tracking-wider shadow-lg hover:scale-105 duration-100 rounded px-3 transform active:scale-95 transition-transform duration-100 cursor-pointer">
             Save
           </button>
         </div>
