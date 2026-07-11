@@ -46,7 +46,7 @@ const LoginForm = () => {
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-semibold text-gray-700">Email Address</label>
+            <label className="block text-left font-semibold text-gray-700">Email Address</label>
             <input
               type="email"
               name="email"
@@ -54,12 +54,12 @@ const LoginForm = () => {
               required
               onChange={handleChange}
               placeholder="you@example.com"
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4B2E2B] focus:outline-none transition-all"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700">Password</label>
+            <label className="block text-left font-semibold text-gray-700">Password</label>
             <input
               type="password"
               name="password"
@@ -67,23 +67,23 @@ const LoginForm = () => {
               required
               onChange={handleChange}
               placeholder="••••••••"
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4B2E2B] focus:outline-none transition-all"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200 mt-2"
+            className="w-full bg-[#4B2E2B] hover:bg-[#99582a] cursor-pointer text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200 mt-2"
           >
             Sign In
           </button>
 
           <button type='submit'
-           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200" onClick={handleGoogleLogin}>
+           className="w-full bg-[#4B2E2B] hover:bg-[#99582a] cursor-pointer text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200" onClick={handleGoogleLogin}>
             Sign in with Google
           </button>
 
-          <p>Create an account <a href='/signup' className='text-blue-700 underline'>Sign up</a></p>
+          <p>Don't have an account? <a href='/signup' className='text-[#4B2E2B] hover:underline'>Sign up</a></p>
           
         </div>
       </form>

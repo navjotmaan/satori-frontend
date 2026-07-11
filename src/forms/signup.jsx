@@ -42,11 +42,11 @@ const SignupForm = () => {
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg border border-gray-100"
       >
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Create Account</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Create new account</h2>
 
-        <div className="space-y-4">
+        <div className="space-y-2">
           <div>
-            <label className="block text-sm font-semibold text-gray-700">Full Name</label>
+            <label className="block text-left font-semibold text-gray-700">Full Name</label>
             <input
               type="text"
               name="name"
@@ -54,12 +54,12 @@ const SignupForm = () => {
               required
               onChange={handleChange}
               placeholder="John Doe"
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4B2E2B] focus:outline-none transition-all"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700">Email Address</label>
+            <label className="block text-left font-semibold text-gray-700">Email Address</label>
             <input
               type="email"
               name="email"
@@ -67,12 +67,12 @@ const SignupForm = () => {
               required
               onChange={handleChange}
               placeholder="you@example.com"
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4B2E2B] focus:outline-none transition-all"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700">Password</label>
+            <label className="block text-left font-semibold text-gray-700">Password</label>
             <input
               type="password"
               name="password"
@@ -80,24 +80,26 @@ const SignupForm = () => {
               required
               onChange={handleChange}
               placeholder="••••••••"
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4B2E2B] focus:outline-none transition-all"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200 mt-2"
+            className="w-full bg-[#4B2E2B] hover:bg-[#99582a] cursor-pointer text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200 mt-2"
           >
             Sign Up
           </button>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200"
+            className="w-full bg-[#4B2E2B] hover:bg-[#99582a] cursor-pointer text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200"
             onClick={handleGoogleLogin}
           >
             Sign up with Google
           </button>
+
+          <p>Already have an account? <a href='/signin' className='text-[#4B2E2B] hover:underline'>Sign in</a></p>
         </div>
       </form>
     </div>
