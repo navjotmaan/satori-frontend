@@ -6,7 +6,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const signup = async (name, email, password) => {
     setLoading(true);
@@ -80,9 +80,14 @@ export const AuthProvider = ({ children }) => {
   
   return (
     <AuthContext.Provider value={{ accessToken, setAccessToken, signup, login, logout, loading }}>
-      {loading ? <div className="flex items-center justify-center mt-50">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-500 border-t-transparent"></div>
-      </div> : children}
+      { loading ? <div className="flex flex-col gap-5 items-center justify-center mt-50">
+        <span className="text-center text-gray-500 font-semibold">
+          <p>It takes a few seconds to load.</p>
+          <p>Please wait...</p>
+        </span>
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#4B2E2B] border-t-transparent"></div>
+      </div> 
+      : children }
     </AuthContext.Provider>
   );
 };
