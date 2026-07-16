@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Popup from './quotes/Popup';
 
-const Sidebar = ({ fetchQuotes }) => {
+const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
 
@@ -27,18 +27,18 @@ const Sidebar = ({ fetchQuotes }) => {
 
             {isOpen && (
                 <div onClick={() => setIsOpen(false)} className='absolute md:bottom-22 md:left-15 left-37 rounded-lg px-2 flex flex-col items-center justify-center m-auto z-50 bg-[#FFF8F0] border border-[#4B2E2B] text-[#4B2E2B]'>
-                    <Link to='new' className='rounded-lg py-1 px-3'>Journal</Link>
-                    <button onClick={() => setShowPopup(true)} className="rounded-xl p-1 px-2 cursor-pointer">Note</button>
+                    <Link to='new' className='rounded-lg py-1 px-3 hover:font-bold'>Journal</Link>
+                    <button onClick={() => setShowPopup(true)} className="rounded-xl p-1 px-2 cursor-pointer hover:font-bold">Note</button>
                 </div>
             )}
 
             {showPopup && (
-                <Popup closePopup={() => setShowPopup(false)} onRefresh={fetchQuotes} />
+                <Popup closePopup={() => setShowPopup(false)} />
             )}
         </div>
 
     )
-}
+};
 
 export default Sidebar;
 

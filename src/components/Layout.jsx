@@ -1,24 +1,13 @@
 import { Outlet } from "react-router-dom";
 import { useState, useEffect, use } from "react";
 import Sidebar from "./Sidebar";
-import api from "../api/axiosInstance";
 import { useAuth } from "../api/AuthContext";
 
 const Layout = () => {
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
-    const [quotes, setQuotes] = useState([]);
 
     const { accessToken } = useAuth();
-
-    const fetchQuotes = async () => {
-        try {
-            const res = await api.get('/quotes');
-            setQuotes([...res.data]);
-        } catch (error) {
-            console.error("Failed to fetch quotes:", error);
-        }
-    };
 
     const parseJwt = (token) => {
         try {
@@ -40,13 +29,13 @@ const Layout = () => {
 
     return (
         <div className="md:flex">
-            <Sidebar fetchQuotes={fetchQuotes} />
-            <main className="flex-1 ">
+            <Sidebar />
+            <main className="flex-1">
                 <header className='text-left p-10'>
                     <h1 className='font-pro text-4xl md:text-5xl text-[#2B2D42]'>{firstName}'s Media</h1>
                     <p className='text-3xl text-[#6B705C] font-display'>We write to taste life twice.</p>
                 </header>
-                <Outlet context={{ userName, email, quotes, fetchQuotes }} />
+                <Outlet context={{ userName, email }} />
             </main>
         </div>
     );
