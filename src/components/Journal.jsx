@@ -3,10 +3,10 @@ import api from "../api/axiosInstance";
 import { useParams, Link } from "react-router-dom";
 import Dialog from "./Dialog";
 import { useJournal } from "./JournalContext";
+import { useQuery } from "@tanstack/react-query";
 
 const Journal = () => {
     const { id } = useParams();
-    const [note, setNote] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -14,14 +14,23 @@ const Journal = () => {
 
     const { setActiveNote } = useJournal();      
 
-    useEffect(() => {
-        const getNote = async () => {
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['note', id],
+        queryFn: async () => {
             const { data } = await api.get(`/notes/${id}`);
-            setNote(data);
-        };
+            return data;
+        }
+    });
 
-        getNote();
-    }, []);
+    const note = data ?? null;
+
+    if (isLoading) return (
+        <div className="flex flex-col gap-5 items-center justify-center mt-30">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#4B2E2B] border-t-transparent"></div>
+        </div> 
+    )
+    if (error) return <p>Failed to load note.</p>;
+    if (!note) return null;
 
     return (
         <div className="px-6 py-14">

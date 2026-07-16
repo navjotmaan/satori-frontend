@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from "../api/axiosInstance";
+import { useQuery } from '@tanstack/react-query';
 
 function App() {
-  const [notes, setNotes] = useState([]);
-
-  useEffect(() => {
-    const getNotes = async () => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['notes'],
+    queryFn: async () => {
       const { data } = await api.get('/notes');
-      setNotes(data.notes);
-    };
+      return data.notes;
+    },
+  });
 
-    getNotes();
-  }, []);
+  const notes = data ?? [];
 
   function getDate(date) {
     const dateObj = new Date(date);
@@ -21,6 +21,13 @@ function App() {
         day: 'numeric' 
     });
   }
+
+  if (isLoading) return (
+    <div className="flex flex-col gap-5 items-center justify-center mt-30">
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#4B2E2B] border-t-transparent"></div>
+    </div> 
+  )
+  if (isError) return <p>Something went wrong loading your notes.</p>;
 
   return (
     <div className='w-full min-h-[100vh] p-10'>
@@ -37,7 +44,7 @@ function App() {
             </Link>
           ))
         ) : 
-          <p className='m-auto mt-20 text-[#919191] font-handwriting'>Your journals will appear here.</p>
+          <p className='m-auto mt-20 text-[#919191] font-handwriting'>There is no journal yet. Create one.</p>
         }
         
       </main>

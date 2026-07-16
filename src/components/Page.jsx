@@ -3,10 +3,12 @@ import { useState, useRef, useEffect, act } from "react";
 import mic from '../assets/microphone.png';
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useJournal } from "./JournalContext";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const Notes = ({ recording, stopRecording, startRecording, loading, transcript }) => {
   const { activeNote } = useJournal();
   const searchParams = useSearchParams();
+  const queryClient = useQueryClient();
 
   const [heading, setHeading] = useState("");
   const [text, setText] = useState("");
@@ -49,25 +51,31 @@ const Notes = ({ recording, stopRecording, startRecording, loading, transcript }
     headingareaRef.current?.focus();
   }, []);
 
-  const saveNote = async () => {
-    try {
-      if (activeNote.id && editId) {
-        await api.put(`/notes/${editId}`, {
+  const mutation = useMutation({
+    mutationFn: () => {
+      if (editId) {
+        return api.put(`/notes/${editId}`, {
           title: heading,
           content: text,
-        });
+        })
       } else {
-        await api.post('/notes', {
+        return api.post('/notes', {
           title: heading,
           content: text,
         });
       }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notes']});
+      if (editId) {
+        queryClient.invalidateQueries({ queryKey: ['notes', editId] });
+      }
       navigate("/dashboard");
-    }
-    catch (error) {
+    },
+    onError: (error) => {
       console.error("Failed to save:", error);
-    }
-  };
+    },
+  });
 
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
@@ -89,9 +97,9 @@ const Notes = ({ recording, stopRecording, startRecording, loading, transcript }
             onClick={recording ? stopRecording : startRecording} />
 
           <button
-            onClick={saveNote}
+            onClick={() => mutation.mutate()} disabled={mutation.isPending}
             className="bg-[#2c2825] text-[#faf9f6] font-semibold tracking-wider shadow-lg hover:scale-105 duration-100 rounded px-3 transform active:scale-95 transition-transform duration-100 cursor-pointer">
-            Save
+            {mutation.isPending ? "Saving..." : "Save"}
           </button>
         </div>
       </div>

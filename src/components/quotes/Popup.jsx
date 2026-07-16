@@ -1,17 +1,20 @@
 import { useState, useRef, useEffect } from "react";
 import api from "../../api/axiosInstance";
 import Dialog from "../Dialog";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const Popup = ({ closePopup, quote = "", id = null, onRefresh = () => {} }) => {
+const Popup = ({ closePopup, quote = "", id = null }) => {
     const [text, setText] = useState(quote || "");
     const textareaRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
 
+    const queryClient = useQueryClient();
+
     useEffect(() => {
-    const ta = textareaRef.current;
-    if (!ta) return;
-    ta.style.height = "auto";
-    ta.style.height = ta.scrollHeight + "px";
+        const ta = textareaRef.current;
+        if (!ta) return;
+        ta.style.height = "auto";
+        ta.style.height = ta.scrollHeight + "px";
     }, [text]);
 
     useEffect(() => {
@@ -23,25 +26,26 @@ const Popup = ({ closePopup, quote = "", id = null, onRefresh = () => {} }) => {
         }
     }, []);
 
-    const saveQuote = async () => {
-        try {
+    const mutation = useMutation({
+        mutationFn: () => {
             if (id) {
-                await api.put(`/quotes/${id}`, {
+                return api.put(`/quotes/${id}`, {
                     quote: text,
                 });
             } else {
-                await api.post('/quotes', {
+                return api.post('/quotes', {
                     quote: text,
                 });
             }
-            onRefresh();
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['quotes']});
             closePopup();
-            
-        }
-        catch (error) {
+        },
+        onError: (error) => {
             console.error("Failed to save:", error);
-        }
-    };
+        },
+    });
 
     return (
         <>
@@ -61,7 +65,7 @@ const Popup = ({ closePopup, quote = "", id = null, onRefresh = () => {} }) => {
                     '
                 />
                 <div>
-                    <button className="min-w-20 rounded-lg bg-[#6B705C] text-white p-1 cursor-pointer transform active:scale-95 transition-transform duration-100 hover:scale-105" onClick={saveQuote}>
+                    <button className="min-w-20 rounded-lg bg-[#6B705C] text-white p-1 cursor-pointer transform active:scale-95 transition-transform duration-100 hover:scale-105" onClick={() => mutation.mutate()}>
                         {id ? "Update" : "Save"}
                     </button>
 
@@ -76,7 +80,7 @@ const Popup = ({ closePopup, quote = "", id = null, onRefresh = () => {} }) => {
             </div>
 
             {isOpen && (
-                <Dialog open={isOpen} onClose={() => setIsOpen(false)} note={false} quoteId={id} closePopup={closePopup} onRefresh={onRefresh} />
+                <Dialog open={isOpen} onClose={() => setIsOpen(false)} note={false} quoteId={id} closePopup={closePopup} />
             )}
         </>
     )
