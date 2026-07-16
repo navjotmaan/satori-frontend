@@ -11,8 +11,8 @@ const Logout = () => {
             
             <div>
                 <p className="font-bold text-xl">{userName}</p>
-                <p className="text-lg mt-2">{email}</p>
-                <button onClick={logout} className="rounded-xl bg-red-500 px-4 py-2 text-white font-semibold mt-8 cursor-pointer">Sign Out</button>
+                <p className="text-lg text-gray-600 mt-2">{email}</p>
+                <button onClick={logout} className="rounded-xl bg-red-500 px-4 py-2 text-white font-semibold mt-8 cursor-pointer transform active:scale-95 transition-transform duration-100 hover:scale-105">Sign Out</button>
             </div>
         </div>
     )
