@@ -16,6 +16,10 @@ import Logout from './components/Profile.jsx';
 import './index.css';
 import Home from './components/Home.jsx';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
+
 const router = createBrowserRouter([
   {
     errorElement: <Error />,
@@ -38,11 +42,13 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <AuthProvider>
-      <JournalProvider>
-        <RouterProvider router={router} />
-      </JournalProvider>
-    </AuthProvider>
-  </StrictMode>,
+  <QueryClientProvider client={queryClient}>
+    <StrictMode>
+      <AuthProvider>
+        <JournalProvider>
+          <RouterProvider router={router} />
+        </JournalProvider>
+      </AuthProvider>
+    </StrictMode>
+  </QueryClientProvider>,
 )
