@@ -1,20 +1,44 @@
 import { createContext, useState, useContext, useEffect } from 'react';
 import api from './axiosInstance';
 import { setApiAccessToken } from './axiosInstance';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [accessToken, setAccessToken] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
+  const [actionLoading, setActionLoading] = useState(false); 
+
+  const { data: accessToken, isLoading: isAuthLoading } = useQuery({
+    queryKey: ['auth', 'refresh'],
+    queryFn: async () => {
+      try {
+        const res = await api.post('/auth/refresh');
+        return res.data.accessToken;
+      } catch {
+        return null; 
+      }
+    },
+    retry: false,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
+  });
+
+  useEffect(() => {
+    setApiAccessToken(accessToken ?? null);
+  }, [accessToken]);
+
+  // Helper to update the cached token directly (avoids an extra refetch)
+  const setAccessToken = (token) => {
+    queryClient.setQueryData(['auth', 'refresh'], token);
+  };
 
   const signup = async (name, email, password) => {
-    setLoading(true);
+    setActionLoading(true);
     try {
       const res = await api.post(
         '/auth/signup',
-        { name, email, password },
-        { withCredentials: true }
+        { name, email, password }
       );
       setAccessToken(res.data.accessToken);
       setApiAccessToken(res.data.accessToken);
@@ -23,17 +47,16 @@ export const AuthProvider = ({ children }) => {
       console.error('Signup failed:', err.response?.data?.message || err.message);
       throw err;
     } finally {
-      setLoading(false);
+      setActionLoading(false);
     }
   };
 
   const login = async (email, password) => {
-    setLoading(true);
+    setActionLoading(true);
     try {
       const res = await api.post(
         '/auth/login',
-        { email, password },
-        { withCredentials: true }
+        { email, password }
       );
       setAccessToken(res.data.accessToken);
       setApiAccessToken(res.data.accessToken);
@@ -43,40 +66,24 @@ export const AuthProvider = ({ children }) => {
       console.error('Login failed:', err.response?.data?.message || err.message);
       throw err;
     } finally {
-      setLoading(false);
+      setActionLoading(false);
     }
   };
 
   const logout = async () => {
-    setLoading(true);
+    setActionLoading(true);
     try {
-      await api.post('/auth/logout', {}, { withCredentials: true });
+      await api.post('/auth/logout');
     } catch (err) {
       console.error('Logout failed:', err.response?.data?.message || err.message);
     } finally {
       setAccessToken(null);
       setApiAccessToken(null);
-      setLoading(false);
+      setActionLoading(false);
     }
   };
 
-  useEffect(() => {
-    const initializeAuth = async () => {
-      try {
-        const res = await api.post('/auth/refresh', {}, { withCredentials: true });
-      
-        setAccessToken(res.data.accessToken);
-        setApiAccessToken(res.data.accessToken);
-      } catch (err) {
-        setAccessToken(null);
-        setApiAccessToken(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    initializeAuth();
-  }, []);
+  const loading = isAuthLoading || actionLoading;
   
   return (
     <AuthContext.Provider value={{ accessToken, setAccessToken, signup, login, logout, loading }}>
