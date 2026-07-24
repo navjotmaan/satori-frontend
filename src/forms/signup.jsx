@@ -37,10 +37,10 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#F6F1E7] p-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg border border-gray-100"
+        className="w-full max-w-md bg-[#F6F1E7] p-8 rounded-xl shadow-[0_25px_70px_-20px_rgba(22,20,15,0.3)] border border-gray-100"
       >
         <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Create new account</h2>
 
@@ -86,20 +86,20 @@ const SignupForm = () => {
 
           <button
             type="submit"
-            className="w-full bg-[#4B2E2B] hover:bg-[#99582a] cursor-pointer text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200 mt-2"
+            className="w-full bg-[#8C4A32] hover:bg-[#A05A3F] cursor-pointer text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200 mt-2"
           >
             Sign Up
           </button>
 
           <button
             type="submit"
-            className="w-full bg-[#4B2E2B] hover:bg-[#99582a] cursor-pointer text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200"
+            className="w-full bg-[#8C4A32] hover:bg-[#A05A3F] cursor-pointer text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200"
             onClick={handleGoogleLogin}
           >
             Sign up with Google
           </button>
 
-          <p>Already have an account? <a href='/signin' className='text-[#4B2E2B] hover:underline'>Sign in</a></p>
+          <p>Already have an account? <a href='/signin' className='text-[#8C4A32] hover:underline'>Sign in</a></p>
         </div>
       </form>
     </div>
